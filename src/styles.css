@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #000000;
+  background-image:
+    radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 136, 0, 0.2) 0%,
+      rgba(255, 136, 0, 0.1) 20%,
+      transparent 40%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 136, 0, 0.03) 0px,
+      rgba(255, 136, 0, 0.03) 1px,
+      transparent 1px,
+      transparent 10px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 136, 0, 0.1),
+      rgba(0, 0, 0, 1) 100%
+    );
+  background-size:
+    100% 100%,
+    20px 20px,
+    50px 50px,
+    50px 50px,
+    100% 100%;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  transition: background-position 0.3s ease;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+#controls {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 38px;
+  border-radius: 8px;
+  color: white;
+  border: 1px solid rgba(255, 136, 0, 0.5);
+  box-shadow: 0 0 20px rgba(255, 136, 0, 0.2);
+  backdrop-filter: blur(10px);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+#controls.visible {
+  transform: translateX(0);
+}
+
+.effect-controls {
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 136, 0, 0.3);
+  padding-top: 10px;
+}
+
+#toggleControls {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  border: 1px solid rgba(255, 136, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 136, 0, 0.2);
+  backdrop-filter: blur(5px);
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#toggleControls:hover {
+  background: rgba(255, 136, 0, 0.3);
+}
+
+input[type="range"] {
+  accent-color: #ff8800;
+}
+
+.logo-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 136, 0, 0.5);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 20px rgba(255, 136, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #ff8800;
+  text-shadow: 0 0 10px rgba(255, 136, 0, 0.5);
+  animation: pulse 2s infinite;
+}
+
+.logo-text {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 136, 0, 0.5);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
