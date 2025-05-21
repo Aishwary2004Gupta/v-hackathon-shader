@@ -2,31 +2,31 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Solar Vortex Shader</title>
-  <link rel="stylesheet" href="src/styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <meta charset="UTF-8" />
+    <title>Solar Vortex Shader</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 
 <body>
-  <div class="logo-container">
-    <div class="logo">⚡</div>
-  </div>
-  <button id="toggleControls">Controls ⚙️</button>
-  <div id="controls">
-    <label>Speed: <input type="range" id="speed" min="0" max="5" step="1" value="1"></label><br>
-    <label>Arms: <input type="range" id="arms" min="5" max="14" step="1" value="6"></label><br>
-    <label>Color: <input type="color" id="color" value="#ff8800"></label>
-    <div class="effect-controls">
-      <label>Bloom: <input type="range" id="bloom" min="0" max="1.5" step="0.1" value="0.1"></label><br>
-      <label>Noise: <input type="range" id="noise" min="0" max="1" step="0.1" value="0.2"></label><br>
-      <label>Distortion: <input type="range" id="distortion" min="0" max="0.5" step="0.1" value="0.0"></label><br>
-      <label>Tilt: <input type="range" id="tilt" min="0" max="1" step="0.2" value="0.4"></label>
+    <div class="logo-container">
+        <div class="logo">⚡</div>
     </div>
-  </div>
-  <canvas id="glcanvas"></canvas>
-  <script type="x-shader/x-vertex" id="vertShader">
+    <button id="toggleControls">Controls ⚙️</button>
+    <div id="controls">
+        <label>Speed: <input type="range" id="speed" min="0" max="5" step="1" value="1"></label><br>
+        <label>Arms: <input type="range" id="arms" min="5" max="14" step="1" value="6"></label><br>
+        <label>Color: <input type="color" id="color" value="#ff8800"></label>
+        <div class="effect-controls">
+            <label>Bloom: <input type="range" id="bloom" min="0" max="1.5" step="0.1" value="0.1"></label><br>
+            <label>Noise: <input type="range" id="noise" min="0" max="1" step="0.1" value="0.2"></label><br>
+            <label>Distortion: <input type="range" id="distortion" min="0" max="0.5" step="0.1" value="0.0"></label><br>
+            <label>Tilt: <input type="range" id="tilt" min="0" max="1" step="0.2" value="0.4"></label>
+        </div>
+    </div>
+    <canvas id="glcanvas"></canvas>
+    <script type="x-shader/x-vertex" id="vertShader">
 varying vec2 vUv;
 varying vec3 vPosition;
 
@@ -36,7 +36,7 @@ void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 </script>
-  <script type="x-shader/x-fragment" id="fragShader">
+    <script type="x-shader/x-fragment" id="fragShader">
 precision highp float;
 uniform float u_time;
 uniform vec2 u_resolution;
@@ -205,7 +205,7 @@ void main() {
     gl_FragColor = vec4(color, 1.0);
 }
 </script>
-  <script src="src/main.js"></script>
+    <script src="src/main.js"></script>
 </body>
 
 </html>
