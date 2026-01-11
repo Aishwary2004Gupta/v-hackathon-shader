@@ -22,7 +22,7 @@ controls.dampingFactor = 0.05;
 controls.screenSpacePanning = false;
 controls.minDistance = 2.5;
 controls.maxDistance = 5;
-controls.rotateSpeed = 0.5;
+// controls.rotateSpeed = 0.5;
 controls.enableZoom = true;
 controls.enablePan = false;
 controls.target.set(0, 0, 0);
