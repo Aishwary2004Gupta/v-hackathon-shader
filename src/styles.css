@@ -2,26 +2,20 @@ body {
   margin: 0;
   overflow: hidden;
   background: #000000;
-  background-image: radial-gradient(
-      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+  background-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
       rgba(255, 136, 0, 0.2) 0%,
       rgba(255, 136, 0, 0.1) 20%,
-      transparent 40%
-    ),
-    repeating-linear-gradient(
-      45deg,
+      transparent 40%),
+    repeating-linear-gradient(45deg,
       rgba(255, 136, 0, 0.03) 0px,
       rgba(255, 136, 0, 0.03) 1px,
       transparent 1px,
-      transparent 10px
-    ),
+      transparent 10px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    radial-gradient(
-      circle at 50% 50%,
+    radial-gradient(circle at 50% 50%,
       rgba(255, 136, 0, 0.1),
-      rgba(0, 0, 0, 1) 100%
-    );
+      rgba(0, 0, 0, 1) 100%);
   background-size: 100% 100%, 20px 20px, 50px 50px, 50px 50px, 100% 100%;
   background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
   transition: background-position 0.3s ease;
@@ -118,9 +112,11 @@ input[type="range"] {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
   }
