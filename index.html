@@ -128,25 +128,19 @@
           float radius = length(p.xy);
           float height = p.z;
 
-          // Create flower petals using radial modulation
-          float petals = sin(angle * u_arms - u_time * u_speed * 0.5) * 0.5 + 0.5;
-          petals = pow(petals, 2.0); // Make petals more pronounced
+          // Create radial petal petals
+          float petalWave = sin(angle * u_arms) * 0.7 + cos(angle * u_arms * 0.5) * 0.3;
+          petalWave = smoothstep(-1.0, 1.0, petalWave);
           
-          // Petal shape - elongated and tapered
-          float petalLength = 1.8 + petals * 0.6;
-          float petalWidth = 0.6 - petals * 0.3; // Petals get narrower at tips
+          // Petal profile - gets narrower toward the tip
+          float petalProfile = smoothstep(1.2, 0.5, radius) * (1.0 + petalWave * 0.6);
           
-          // Create the petal shape
-          float petal = length(vec2(radius - petalLength, abs(height) * 0.5)) - petalWidth;
+          // Main flower body
+          float shape = length(p) - (1.0 + petalProfile * 0.7);
           
-          // Add a gentle bulge in the center
-          float center = length(p) - (0.4 + sin(u_time * u_speed * 0.3) * 0.1);
-          
-          // Combine petal and center
-          float shape = max(petal, center);
-          
-          // Add subtle ribbing to petals
-          float ribbing = sin(radius * 8.0 - angle * 2.0) * 0.05;
+          // Add animation
+          float wave = sin(angle * u_arms - u_time * u_speed * 0.3 + radius * 2.0) * 0.2;
+          shape += wave;
           
           // Add noise for organic feel
           vec3 fbmVal = vec3(
@@ -155,9 +149,9 @@
               fbm(p.xz + vec2(u_time * 0.1))
           );
           
-          float distortion = dot(fbmVal, vec3(0.4)) * u_distortion * 0.3;
+          float distortion = dot(fbmVal, vec3(0.4)) * u_distortion * 0.2;
           
-          return shape + ribbing + distortion;
+          return shape + distortion;
       }
 
       vec3 getNormal(vec3 p) {
