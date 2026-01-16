@@ -125,21 +125,39 @@
 
       float map(vec3 p) {
           float angle = atan(p.y, p.x);
-          float radius = length(p.xz);
-          float height = p.y;
+          float radius = length(p.xy);
+          float height = p.z;
 
-          float spiral = sin(angle * u_arms + radius * 2.5 - u_time * u_speed) * 0.7;
-          spiral += cos(height * 3.0 + angle * 2.0 + u_time * u_speed * 0.3) * 0.5;
-
-          float shape = length(p) - (1.5 + spiral * 0.4);
-
+          // Create flower petals using radial modulation
+          float petals = sin(angle * u_arms - u_time * u_speed * 0.5) * 0.5 + 0.5;
+          petals = pow(petals, 2.0); // Make petals more pronounced
+          
+          // Petal shape - elongated and tapered
+          float petalLength = 1.8 + petals * 0.6;
+          float petalWidth = 0.6 - petals * 0.3; // Petals get narrower at tips
+          
+          // Create the petal shape
+          float petal = length(vec2(radius - petalLength, abs(height) * 0.5)) - petalWidth;
+          
+          // Add a gentle bulge in the center
+          float center = length(p) - (0.4 + sin(u_time * u_speed * 0.3) * 0.1);
+          
+          // Combine petal and center
+          float shape = max(petal, center);
+          
+          // Add subtle ribbing to petals
+          float ribbing = sin(radius * 8.0 - angle * 2.0) * 0.05;
+          
+          // Add noise for organic feel
           vec3 fbmVal = vec3(
               fbm(p.xy + vec2(u_time * 0.2)),
               fbm(p.yz + vec2(u_time * 0.15)),
               fbm(p.xz + vec2(u_time * 0.1))
           );
-
-          return shape + dot(fbmVal, vec3(0.4)) * u_distortion;
+          
+          float distortion = dot(fbmVal, vec3(0.4)) * u_distortion * 0.3;
+          
+          return shape + ribbing + distortion;
       }
 
       vec3 getNormal(vec3 p) {
@@ -181,11 +199,11 @@
               float noiseVal = noise3D(noisePos) * u_noise;
               p += noiseVal;
 
-              float ds = map(p) * 0.7;
+              float ds = map(p) * 0.8;
               if(ds < SURF_DIST || d0 > MAX_DIST) break;
 
-              float glowFactor = 1.0 / (1.0 + ds * ds * 8.0);
-              glow += glowFactor * u_bloom * 0.1;
+              float glowFactor = 1.0 / (1.0 + ds * ds * 10.0);
+              glow += glowFactor * u_bloom * 0.12;
               noise += noiseVal * 0.5;
 
               d0 += ds;
