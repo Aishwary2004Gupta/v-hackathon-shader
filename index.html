@@ -138,7 +138,7 @@
               fbm(p.yz + vec2(u_time * 0.15)),
               fbm(p.xz + vec2(u_time * 0.1))
           );
-   
+
           return shape + dot(fbmVal, vec3(0.4)) * u_distortion;
       }
 
