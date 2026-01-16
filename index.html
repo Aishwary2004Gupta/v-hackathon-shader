@@ -125,33 +125,21 @@
 
       float map(vec3 p) {
           float angle = atan(p.y, p.x);
-          float radius = length(p.xy);
-          float height = p.z;
+          float radius = length(p.xz);
+          float height = p.y;
 
-          // Create radial petal petals
-          float petalWave = sin(angle * u_arms) * 0.7 + cos(angle * u_arms * 0.5) * 0.3;
-          petalWave = smoothstep(-1.0, 1.0, petalWave);
-          
-          // Petal profile - gets narrower toward the tip
-          float petalProfile = smoothstep(1.2, 0.5, radius) * (1.0 + petalWave * 0.6);
-          
-          // Main flower body
-          float shape = length(p) - (1.0 + petalProfile * 0.7);
-          
-          // Add animation
-          float wave = sin(angle * u_arms - u_time * u_speed * 0.3 + radius * 2.0) * 0.2;
-          shape += wave;
-          
-          // Add noise for organic feel
+          float spiral = sin(angle * u_arms + radius * 2.5 - u_time * u_speed) * 0.7;
+          spiral += cos(height * 3.0 + angle * 2.0 + u_time * u_speed * 0.3) * 0.5;
+
+          float shape = length(p) - (1.5 + spiral * 0.4);
+
           vec3 fbmVal = vec3(
               fbm(p.xy + vec2(u_time * 0.2)),
               fbm(p.yz + vec2(u_time * 0.15)),
               fbm(p.xz + vec2(u_time * 0.1))
           );
-          
-          float distortion = dot(fbmVal, vec3(0.4)) * u_distortion * 0.2;
-          
-          return shape + distortion;
+
+          return shape + dot(fbmVal, vec3(0.4)) * u_distortion;
       }
 
       vec3 getNormal(vec3 p) {
@@ -193,11 +181,11 @@
               float noiseVal = noise3D(noisePos) * u_noise;
               p += noiseVal;
 
-              float ds = map(p) * 0.8;
+              float ds = map(p) * 0.7;
               if(ds < SURF_DIST || d0 > MAX_DIST) break;
 
-              float glowFactor = 1.0 / (1.0 + ds * ds * 10.0);
-              glow += glowFactor * u_bloom * 0.12;
+              float glowFactor = 1.0 / (1.0 + ds * ds * 8.0);
+              glow += glowFactor * u_bloom * 0.1;
               noise += noiseVal * 0.5;
 
               d0 += ds;
