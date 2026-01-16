@@ -106,12 +106,12 @@ function hexToRGB(hex) {
   return [r, g, b];
 }
 
-let speed = 0.8;
+let speed = 1.5;
 let arms = 6;
 let color = hexToRGB('#ff8800');
-let bloom = 0.3;
-let noiseAmount = 0.15;
-let distortion = 0.2;
+let bloom = 0.1;
+let noiseAmount = 0.2;
+let distortion = 0.0;
 
 // Event Listeners for Controls
 document.getElementById('speed').addEventListener('input', (e) => {
